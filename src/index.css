@@ -1,0 +1,252 @@
+@tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap');
+
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Netflix-inspired dark theme */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 0 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 16%;
+    --ring: 0 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Service colors inspired by the images */
+    --whatsapp-green: 142 76% 36%;
+    --whatsapp-green-glow: 142 76% 56%;
+    --video-blue: 217 91% 60%;
+    --video-blue-glow: 217 91% 80%;
+    --automation-red: 0 84% 60%;
+    --automation-red-glow: 0 84% 80%;
+    --social-purple: 280 100% 60%;
+    --social-purple-glow: 280 100% 80%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 4%) 100%);
+    --gradient-whatsapp: linear-gradient(135deg, hsl(var(--whatsapp-green)), hsl(var(--whatsapp-green-glow)));
+    --gradient-video: linear-gradient(135deg, hsl(var(--video-blue)), hsl(var(--video-blue-glow)));
+    --gradient-automation: linear-gradient(135deg, hsl(var(--automation-red)), hsl(var(--automation-red-glow)));
+    --gradient-social: linear-gradient(135deg, hsl(var(--social-purple)), hsl(var(--social-purple-glow)));
+
+    /* Shadows with Netflix-style glow */
+    --shadow-netflix: 0 8px 32px rgba(0, 0, 0, 0.8);
+    --shadow-whatsapp: 0 8px 32px hsl(var(--whatsapp-green) / 0.3);
+    --shadow-video: 0 8px 32px hsl(var(--video-blue) / 0.3);
+    --shadow-automation: 0 8px 32px hsl(var(--automation-red) / 0.3);
+    --shadow-social: 0 8px 32px hsl(var(--social-purple) / 0.3);
+
+    /* Animation */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* Netflix-style components */
+@layer components {
+  .netflix-card {
+    @apply relative overflow-hidden rounded-lg transition-all duration-500 ease-out;
+    transform-style: preserve-3d;
+  }
+
+  .netflix-card:hover {
+    transform: scale(1.05) rotateY(5deg);
+    z-index: 10;
+  }
+
+  .netflix-card::before {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    content: '';
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+  }
+
+  .netflix-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .service-whatsapp {
+    background: var(--gradient-whatsapp);
+    box-shadow: var(--shadow-whatsapp);
+  }
+
+  .service-video {
+    background: var(--gradient-video);
+    box-shadow: var(--shadow-video);
+  }
+
+  .service-automation {
+    background: var(--gradient-automation);
+    box-shadow: var(--shadow-automation);
+  }
+
+  .service-social {
+    background: var(--gradient-social);
+    box-shadow: var(--shadow-social);
+  }
+
+  .floating-cta {
+    @apply fixed bottom-6 right-6 z-50 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300;
+    /* Lift above mobile safe area */
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    bottom: calc(24px + constant(safe-area-inset-bottom));
+    background: var(--gradient-whatsapp);
+    box-shadow: var(--shadow-whatsapp);
+  }
+
+  /* Raise button further on small screens to avoid iOS/Android browser toolbars */
+  @media (max-width: 640px) {
+    .floating-cta {
+      bottom: calc(90px + env(safe-area-inset-bottom));
+      bottom: calc(90px + constant(safe-area-inset-bottom));
+    }
+  }
+
+  .floating-cta:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: 0 12px 40px hsl(var(--whatsapp-green) / 0.4);
+  }
+
+  .hero-gradient {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('https://cdn.builder.io/api/v1/image/assets%2F403b9360bc594a06973aa2dafa172b04%2F0d6187cd29494e408260687a6610c405?format=webp&width=1920'), var(--gradient-hero);
+    background-size: 100% 100%, cover, auto;
+    background-position: center top, center, center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-attachment: scroll, fixed, scroll;
+    background-color: hsl(var(--background));
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px currentColor;
+  }
+}
+
+/* Netflix-style animations */
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-netflix-fade {
+    animation: netflixFade 0.8s ease-out forwards;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px currentColor; }
+    to { box-shadow: 0 0 30px currentColor, 0 0 40px currentColor; }
+  }
+
+  @keyframes netflixFade {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+}
